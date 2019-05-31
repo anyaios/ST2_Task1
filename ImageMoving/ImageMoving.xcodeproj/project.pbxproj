@@ -13,6 +13,8 @@
 		0BE0536C22A1C603003E14DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BE0536B22A1C603003E14DC /* Assets.xcassets */; };
 		0BE0536F22A1C603003E14DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BE0536D22A1C603003E14DC /* LaunchScreen.storyboard */; };
 		0BE0537222A1C603003E14DC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE0537122A1C603003E14DC /* main.m */; };
+		0BE0537B22A1CB32003E14DC /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE0537922A1CB32003E14DC /* SecondViewController.m */; };
+		0BE0537C22A1CB32003E14DC /* SecondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BE0537A22A1CB32003E14DC /* SecondViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,9 @@
 		0BE0536E22A1C603003E14DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0BE0537022A1C603003E14DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BE0537122A1C603003E14DC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0BE0537822A1CB32003E14DC /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		0BE0537922A1CB32003E14DC /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		0BE0537A22A1CB32003E14DC /* SecondViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +67,9 @@
 				0BE0536322A1C601003E14DC /* AppDelegate.m */,
 				0BE0536522A1C601003E14DC /* ViewController.h */,
 				0BE0536622A1C601003E14DC /* ViewController.m */,
+				0BE0537822A1CB32003E14DC /* SecondViewController.h */,
+				0BE0537922A1CB32003E14DC /* SecondViewController.m */,
+				0BE0537A22A1CB32003E14DC /* SecondViewController.xib */,
 				0BE0536822A1C601003E14DC /* Main.storyboard */,
 				0BE0536B22A1C603003E14DC /* Assets.xcassets */,
 				0BE0536D22A1C603003E14DC /* LaunchScreen.storyboard */,
@@ -128,6 +136,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BE0537C22A1CB32003E14DC /* SecondViewController.xib in Resources */,
 				0BE0536F22A1C603003E14DC /* LaunchScreen.storyboard in Resources */,
 				0BE0536C22A1C603003E14DC /* Assets.xcassets in Resources */,
 				0BE0536A22A1C601003E14DC /* Main.storyboard in Resources */,
@@ -141,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BE0537B22A1CB32003E14DC /* SecondViewController.m in Sources */,
 				0BE0536722A1C601003E14DC /* ViewController.m in Sources */,
 				0BE0537222A1C603003E14DC /* main.m in Sources */,
 				0BE0536422A1C601003E14DC /* AppDelegate.m in Sources */,
