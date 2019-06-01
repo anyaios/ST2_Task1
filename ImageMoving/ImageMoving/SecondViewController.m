@@ -29,22 +29,59 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *listView;
+@property (strong, nonatomic) UIView *elementView;
 @property (nonatomic, strong) NSMutableArray *squares;
 
-@end
 
-@interface SecondViewController ()
 
 @end
 
 @implementation SecondViewController
 
+float viewHeight = 100.0;
+float openViewHeight = 225.0;
+float currentViewPossitionX = 0.0;
+float currentViewPossitionY = 0.0;
+float viewSpacing = 10.0;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Select Item";
     
-    [self addImage:@"Image"];
-    [self addImage:@"1"];
+    
+//    _elementView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height / 2)];
+//    _elementView.layer.borderWidth = 6;
+//    [self.scrollView addSubview:_elementView];
+    
+//    [self addImage:@"Image"];
+//    [self addImage:@"1"];
+    
+    _squares[3] = [[NSMutableArray alloc] init];
+    float viewCount = 0;
+    for (int i = 0; i < 4; i++) {
+        _elementView = [[UIView alloc] initWithFrame:CGRectMake(currentViewPossitionX, currentViewPossitionY, CGRectGetWidth(_scrollView.bounds),viewHeight)];
+        _elementView.layer.borderWidth = 6;
+        [self addImage: i];
+        
+        viewCount++;
+        currentViewPossitionY += viewHeight + viewSpacing;
+        
+        [self.scrollView addSubview:_elementView];
+        [_squares[i] addObject:_elementView];
+    }
+
+    
+//
+//    for(int i = 0; i <3; i++){
+//        _squares[i] = [[CustomView alloc] initWithFrame:CGRectMake(currentViewPossitionX, currentViewPossitionY, CGRectGetWidth(_scrollView.bounds), viewHeight)];
+//
+//
+//        [_scrollView addSubview:_squares[i]];
+//        viewCount++;
+//        currentViewPossitionY += viewHeight + viewSpacing;
+//    }
+    
+    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds),(viewHeight * viewCount + 500));
 
 //    self.squares = [[NSMutableArray alloc] init];
 //
@@ -57,18 +94,18 @@
 
     // Do any additional setup after loading the view from its nib.
 }
--(void) addImage: (NSString *) imageName {
+-(void) addImage: (int) imageName {
     
-    CustomView *elementView = [[CustomView alloc] initWithFrame:CGRectMake(0.f, 0.f, 50, 50)];
+    NSString *name = [NSString stringWithFormat:@"%d",imageName];
     
-    elementView.layer.borderWidth = 3;
-    elementView.name = imageName;
+    UIImage *img = [UIImage imageNamed: name];
     
-
+    CustomView *elementImage = [[CustomView alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width / 2 - (img.size.width / 3) / 2, 0.f, img.size.width / 3, img.size.height / 3)];
     
-    [_listView addSubview:elementView];
+    elementImage.layer.borderWidth = 3;
+    elementImage.name = name;
     
-    
+    [_elementView addSubview:elementImage];
 }
 /*
 #pragma mark - Navigation
