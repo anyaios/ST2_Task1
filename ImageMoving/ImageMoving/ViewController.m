@@ -7,8 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "SecondViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <UINavigationControllerDelegate>
 
 @end
 
@@ -17,7 +18,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Description";
-    // Do any additional setup after loading the view.
+    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(prepareForSegue:sender:)];
+    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+}
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    SecondViewController *controller = [SecondViewController new];
+    //SecondViewController *controller = (SecondViewController *)segue.destinationViewController;
+   // [self presentViewController:controller animated:YES completion:nil];
+    [self showViewController:controller sender:sender];
 }
 
 
