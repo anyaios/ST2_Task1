@@ -12,7 +12,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SecondViewController">
             <connections>
-                <outlet property="listView" destination="kaY-hI-KTd" id="lEp-u7-ZWx"/>
                 <outlet property="scrollView" destination="XD4-6S-BQC" id="biC-nx-7gW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,16 +24,6 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XD4-6S-BQC">
                     <rect key="frame" x="20" y="95" width="349" height="244"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kaY-hI-KTd">
-                            <rect key="frame" x="54" y="58" width="245" height="46"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <accessibility key="accessibilityConfiguration">
-                                <accessibilityTraits key="traits" image="YES"/>
-                            </accessibility>
-                        </view>
-                    </subviews>
                     <color key="backgroundColor" name="selectedContentBackgroundColor" catalog="System" colorSpace="catalog"/>
                 </scrollView>
             </subviews>

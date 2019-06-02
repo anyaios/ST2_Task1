@@ -56,13 +56,7 @@ float viewSpacing = 10.0;
     
 
     _height = _scrollView.bounds.size.height;
-    
-//    _elementView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.bounds.size.width, self.scrollView.bounds.size.height / 2)];
-//    _elementView.layer.borderWidth = 6;
-//    [self.scrollView addSubview:_elementView];
-    
-//    [self addImage:@"Image"];
-//    [self addImage:@"1"];
+
     NSArray *listUrl = @[
                          @"https://loremflickr.com/cache/resized/7805_32549528197_df71385922_320_240_nofilter.jpg",
                          @"https://loremflickr.com/cache/resized/7811_46251604515_8380bc8272_320_320_nofilter.jpg",
@@ -92,29 +86,11 @@ float viewSpacing = 10.0;
         [_squares[i] addObject:_elementView];
     }
 
-    
-//
-//    for(int i = 0; i <3; i++){
-//        _squares[i] = [[CustomView alloc] initWithFrame:CGRectMake(currentViewPossitionX, currentViewPossitionY, CGRectGetWidth(_scrollView.bounds), viewHeight)];
-//
-//
-//        [_scrollView addSubview:_squares[i]];
-//        viewCount++;
-//        currentViewPossitionY += viewHeight + viewSpacing;
-//    }
+
     
     _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds),(viewHeight * viewCount + 500));
 
-//    self.squares = [[NSMutableArray alloc] init];
-//
-//    for(int i = 0; i < 4; i++)
-//    {
-//        CustomView *v = [[CustomView alloc] initWithFrame: CGRectMake(100, 100, 60, 60)];
-//        [self.squares addObject:v];
-//    }
-    
 
-    // Do any additional setup after loading the view from its nib.
 }
 -(CustomView*) addImage: (int) imageName {
     
@@ -137,9 +113,9 @@ float viewSpacing = 10.0;
 
 -(UILabel*) addLabel: (NSString*) imageName {
     
-    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _image.bounds.size.height + viewSpacing*2, _scrollView.bounds.size.width, 20)];
-    newLabel.layer.borderWidth = 3;
-    newLabel.text = [newLabel.text stringByAppendingString: imageName];
+    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width / 2 - _image.bounds.size.width / 2, _image.bounds.size.height + viewSpacing*1.5, _scrollView.bounds.size.width / 2, 20)];
+    newLabel.layer.borderWidth = 0;
+    newLabel.text = imageName;
     
     
     return newLabel;
