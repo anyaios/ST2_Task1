@@ -7,6 +7,7 @@
 //
 
 #import "SecondViewController.h"
+#import "ViewController.h"
 
 @interface CustomView : UIView
 @property (strong, nonatomic, readwrite) NSString *name;
@@ -25,7 +26,7 @@
 
 @end
 
-@interface SecondViewController ()
+@interface SecondViewController () <UIGestureRecognizerDelegate>
 //@property (strong, nonatomic) UIView *createView;
 //@property (weak, nonatomic) IBOutlet CustomView *customView;
 
@@ -53,6 +54,7 @@ float viewSpacing = 10.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Select Item";
+    self.navigationItem.hidesBackButton = YES;
     
 
     _height = _scrollView.bounds.size.height;
@@ -68,7 +70,7 @@ float viewSpacing = 10.0;
     float viewCount = 0;
     for (int i = 0; i < 4; i++) {
         
-        _elementView = [[UIView alloc] initWithFrame:CGRectMake(currentViewPossitionX, currentViewPossitionY, CGRectGetWidth(_scrollView.bounds),viewHeight)];
+        _elementView = [[UIView alloc] initWithFrame:CGRectMake(currentViewPossitionX, 190*i + viewSpacing, CGRectGetWidth(_scrollView.bounds),viewHeight)];
         
         _elementView.layer.borderWidth = 0;
         
@@ -84,11 +86,16 @@ float viewSpacing = 10.0;
         
         [self.scrollView addSubview:_elementView];
         [_squares[i] addObject:_elementView];
+        
+        [self tapImage];
     }
 
 
     
     _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds),(viewHeight * viewCount + 500));
+    
+    
+    
 
 
 }
@@ -100,7 +107,7 @@ float viewSpacing = 10.0;
     
     CustomView *elementImage = [[CustomView alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width / 2 - (img.size.width / 2) / 2, viewSpacing, img.size.width / 2, img.size.height / 2)];
     
-    elementImage.layer.borderWidth = 3;
+    elementImage.layer.borderWidth = 0;
     elementImage.name = name;
    // elementImage.imageHeight = img.size.height / 2.5 + viewSpacing;
     
@@ -119,6 +126,31 @@ float viewSpacing = 10.0;
     
     
     return newLabel;
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        //        ViewController *vc = [[ViewController alloc] init];
+        //        [self.navigationController popToViewController:vc animated:YES];
+        
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
+- (void)tapImage {
+    UITapGestureRecognizer *select = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    select.delegate = self;
+    select.numberOfTapsRequired = 1;
+    [_image addGestureRecognizer:select];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ViewController *destination = (ViewController*)segue.destinationViewController;
+    destination.pickedImage = _elementView;
+    //sender = _image;
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 /*
 #pragma mark - Navigation

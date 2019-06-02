@@ -20,6 +20,11 @@
     self.title = @"Description";
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(prepareForSegue:sender:)];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+    
+    UIView *customView = [[UIView alloc] initWithFrame:self.view.bounds];
+    customView.layer.borderWidth = 3;
+    [customView addSubview:_pickedImage];
+    [self.view addSubview:customView];
 }
 
 
