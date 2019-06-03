@@ -59,21 +59,28 @@ float viewSpacing = 10.0;
     self.navigationItem.hidesBackButton = YES;
     UIBarButtonItem *closing = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(toClose)];
     self.navigationItem.rightBarButtonItem = closing;
-
+    
     _height = _scrollView.bounds.size.height;
-
+    
     NSArray *listUrl = @[
                          @"https://loremflickr.com/cache/resized/7805_32549528197_df71385922_320_240_nofilter.jpg",
                          @"https://loremflickr.com/cache/resized/7811_46251604515_8380bc8272_320_320_nofilter.jpg",
                          @"https://loremflickr.com/cache/resized/7916_47537711841_8cbf59efb8_c_320_480_nofilter.jpg",
-                         @"https://loremflickr.com/cache/resized/4808_32447536148_5a7cae30dc_h_320_240_nofilter.jpg"
+                         @"https://loremflickr.com/cache/resized/4808_32447536148_5a7cae30dc_h_320_240_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/7805_32549528197_df71385922_320_240_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/7811_46251604515_8380bc8272_320_320_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/7916_47537711841_8cbf59efb8_c_320_480_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/4808_32447536148_5a7cae30dc_h_320_240_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/7916_47537711841_8cbf59efb8_c_320_480_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/7916_47537711841_8cbf59efb8_c_320_480_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/7805_32549528197_df71385922_320_240_nofilter.jpg",
                          ];
     
-    _squares[3] = [[NSMutableArray alloc] init];
+   // _squares = [[NSMutableArray alloc] init];
     float viewCount = 0;
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 11; i++) {
         
-        _elementView = [[UIView alloc] initWithFrame:CGRectMake(currentViewPossitionX, 190*i + viewSpacing, CGRectGetWidth(_scrollView.bounds),viewHeight)];
+        _elementView = [[UIView alloc] initWithFrame:CGRectMake(currentViewPossitionX, 280*i + viewSpacing*2, CGRectGetWidth(_scrollView.bounds),viewHeight)];
         
         _elementView.layer.borderWidth = 0;
         
@@ -88,15 +95,15 @@ float viewSpacing = 10.0;
         currentViewPossitionY += _image.bounds.size.height + viewSpacing*4;
         
         [self.scrollView addSubview:_elementView];
-        [_squares[i] addObject:_elementView];
+      //  [_squares[i] addObject:_elementView];
         
         [self tapImage];
         
     }
-
-
     
-    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds),(viewHeight * viewCount + 500));
+    
+    
+    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds),(viewHeight * viewCount + 2000));
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
                                               [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
@@ -107,8 +114,8 @@ float viewSpacing = 10.0;
      ];
     
     
-
-
+    
+    
 }
 -(CustomView*) addImage: (int) imageName {
     
@@ -120,12 +127,12 @@ float viewSpacing = 10.0;
     
     elementImage.layer.borderWidth = 0;
     elementImage.name = name;
-   // elementImage.imageHeight = img.size.height / 2.5 + viewSpacing;
+    // elementImage.imageHeight = img.size.height / 2.5 + viewSpacing;
     
-   // [_elementView addSubview:elementImage];
+    // [_elementView addSubview:elementImage];
     return elementImage;
     
-
+    
     //return img.size.height / 2.5 + viewSpacing;
 }
 
@@ -142,12 +149,12 @@ float viewSpacing = 10.0;
 - (void)handleTap:(UITapGestureRecognizer *)sender
 {
     if (sender.state == UIGestureRecognizerStateEnded) {
-       // CustomView *cv = (CustomView *)sender.view;
-      
+        // CustomView *cv = (CustomView *)sender.view;
+        
         
         CustomView *customView = (CustomView *)sender.view;
         _myBlock(_label.text, customView);
-
+        
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
