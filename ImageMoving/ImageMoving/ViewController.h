@@ -14,5 +14,7 @@
 @property (nonatomic, strong) UIView *pickedImage;
 
 @property (nonatomic, strong) CustomView *customImage;
+@property (nonatomic, strong) NSMutableArray *array;
+
 @end
 

@@ -39,6 +39,9 @@
     
     SecondViewController *controller = [SecondViewController new];
     
+   
+   
+        
     controller.myBlock =^UIView*(NSString *data, UIView *uiview)
     {
         self.title = data;
@@ -57,11 +60,17 @@
         [self.pickedImage addGestureRecognizer:panRecognizer];
         
         
+        [self.array addObject:sender];
+//        for(int i=0; i<4; ++i) {
+//            
+//        }
         
         return newV;
         
         
     };
+        
+    
     
     
 
