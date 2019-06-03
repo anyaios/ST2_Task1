@@ -139,10 +139,13 @@ float viewSpacing = 10.0;
         
         //        [self.navigationController popToViewController:vc animated:YES];
 
-        _myBlock(_label.text, _elementView);
+        _myBlock(_label.text, _image);
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
+
+
+
 
 - (void)tapImage {
     UITapGestureRecognizer *select = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];

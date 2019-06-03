@@ -42,7 +42,12 @@
     controller.myBlock =^void(NSString *data, UIView *uiview)
     {
         self.title = data;
-        [self.view addSubview:uiview];
+        //UIView *newV = [UIView new];
+        UIView *newV = [[UIView alloc] initWithFrame:CGRectMake(0,300,300,300)];
+        newV.layer.borderWidth = 0;
+        [self.view addSubview:newV];
+        [newV addSubview:uiview];
+        
     };
     //SecondViewController *controller = (SecondViewController *)segue.destinationViewController;
    // [self presentViewController:controller animated:YES completion:nil];
