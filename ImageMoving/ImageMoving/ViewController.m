@@ -39,9 +39,10 @@
     
     SecondViewController *controller = [SecondViewController new];
     
-    controller.myBlock =^void(NSString *data)
+    controller.myBlock =^void(NSString *data, UIView *uiview)
     {
         self.title = data;
+        [self.view addSubview:uiview];
     };
     //SecondViewController *controller = (SecondViewController *)segue.destinationViewController;
    // [self presentViewController:controller animated:YES completion:nil];

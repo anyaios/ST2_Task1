@@ -12,6 +12,7 @@
 @interface CustomView : UIView
 @property (strong, nonatomic, readwrite) NSString *name;
 @property (strong, nonatomic, readwrite) UILabel *nameLabel;
+@property (strong, nonatomic, readwrite) NSString *str;
 @property float imageHeight;
 @end
 
@@ -89,7 +90,7 @@ float viewSpacing = 10.0;
         [_squares[i] addObject:_elementView];
         
         [self tapImage];
-        _myBlock(_label.text);
+        
     }
 
 
@@ -138,7 +139,7 @@ float viewSpacing = 10.0;
         
         //        [self.navigationController popToViewController:vc animated:YES];
 
-        
+        _myBlock(_label.text, _elementView);
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
