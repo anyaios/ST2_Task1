@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "SecondViewController.h"
 
-@interface ViewController () <UINavigationControllerDelegate>
+@interface ViewController () <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
 @end
 
@@ -22,7 +22,7 @@
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
     UIView *customView = [[UIView alloc] initWithFrame:self.view.bounds];
-    customView.layer.borderWidth = 3;
+    customView.layer.borderWidth = 6;
     [customView addSubview:_pickedImage];
     [self.view addSubview:customView];
     
@@ -39,7 +39,7 @@
     
     SecondViewController *controller = [SecondViewController new];
     
-    controller.myBlock =^void(NSString *data, UIView *uiview)
+    controller.myBlock =^UIView*(NSString *data, UIView *uiview)
     {
         self.title = data;
         //UIView *newV = [UIView new];
@@ -47,12 +47,50 @@
         newV.layer.borderWidth = 0;
         [self.view addSubview:newV];
         [newV addSubview:uiview];
+        self.pickedImage = newV;
+        
+      
+        UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moving:)];
+        [panRecognizer setMinimumNumberOfTouches:1];
+        [panRecognizer setMaximumNumberOfTouches:1];
+        [panRecognizer setDelegate:self];
+        [self.pickedImage addGestureRecognizer:panRecognizer];
+        
+        
+        
+        return newV;
+        
         
     };
+    
+    
+
     //SecondViewController *controller = (SecondViewController *)segue.destinationViewController;
    // [self presentViewController:controller animated:YES completion:nil];
     [self showViewController:controller sender:sender];
 }
+CGFloat initialX;
+CGFloat initialY;
 
+-(void)moving:(id)sender {
+    [self.view bringSubviewToFront:[(UIPanGestureRecognizer*)sender view]];
+    CGPoint toPoint = [(UIPanGestureRecognizer*)sender translationInView:self.view];
+    
+    if([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateBegan) {
+        initialX = [[sender view] center].x;
+        initialY = [[sender view] center].y;
+    }
+    toPoint = CGPointMake(initialX+toPoint.x, initialY+toPoint.y);
+    
+    [[sender view] setCenter:toPoint];
+    
+    if([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded) {
+        
+        CGFloat currentX = toPoint.x + (0*[(UIPanGestureRecognizer*)sender velocityInView:self.pickedImage].x);
+        CGFloat currentY = toPoint.y + (0*[(UIPanGestureRecognizer*)sender velocityInView:self.pickedImage].y);
+        
+        [[sender view] setCenter:CGPointMake(currentX, currentY)];
+    }
+}
 
 @end

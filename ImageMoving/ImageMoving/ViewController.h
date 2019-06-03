@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+
+@class CustomView;
 @interface ViewController : UIViewController
 @property (nonatomic, strong) UIView *pickedImage;
 
-
+@property (nonatomic, strong) CustomView *customImage;
 @end
 

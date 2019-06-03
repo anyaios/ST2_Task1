@@ -11,7 +11,7 @@
 
 
 @interface SecondViewController : UIViewController
-@property (nonatomic, copy)void(^myBlock)(NSString *, UIView *);
+@property (nonatomic, copy)UIView*(^myBlock)(NSString *, UIView *);
 @end
 
 
