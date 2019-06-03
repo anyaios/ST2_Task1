@@ -52,6 +52,7 @@ float currentViewPossitionY = 0.0;
 float viewSpacing = 10.0;
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.title = @"Select Item";
     self.navigationItem.hidesBackButton = YES;
@@ -88,6 +89,7 @@ float viewSpacing = 10.0;
         [_squares[i] addObject:_elementView];
         
         [self tapImage];
+        _myBlock(_label.text);
     }
 
 
@@ -131,9 +133,11 @@ float viewSpacing = 10.0;
 - (void)handleTap:(UITapGestureRecognizer *)sender
 {
     if (sender.state == UIGestureRecognizerStateEnded) {
-        //        ViewController *vc = [[ViewController alloc] init];
-        //        [self.navigationController popToViewController:vc animated:YES];
+       // CustomView *cv = (CustomView *)sender.view;
+      
         
+        //        [self.navigationController popToViewController:vc animated:YES];
+
         
         [self.navigationController popToRootViewControllerAnimated:YES];
     }

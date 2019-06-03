@@ -25,12 +25,24 @@
     customView.layer.borderWidth = 3;
     [customView addSubview:_pickedImage];
     [self.view addSubview:customView];
+    
+    //SecondViewController *ref =[[SecondViewController alloc ]init];
+    
+//    ref.myBlock =^void(NSString *data)
+//    {
+//        self.title = data;
+//    };
 }
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     SecondViewController *controller = [SecondViewController new];
+    
+    controller.myBlock =^void(NSString *data)
+    {
+        self.title = data;
+    };
     //SecondViewController *controller = (SecondViewController *)segue.destinationViewController;
    // [self presentViewController:controller animated:YES completion:nil];
     [self showViewController:controller sender:sender];
