@@ -57,7 +57,8 @@ float viewSpacing = 10.0;
     [super viewDidLoad];
     self.title = @"Select Item";
     self.navigationItem.hidesBackButton = YES;
-    
+    UIBarButtonItem *closing = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(toClose)];
+    self.navigationItem.rightBarButtonItem = closing;
 
     _height = _scrollView.bounds.size.height;
 
@@ -137,8 +138,9 @@ float viewSpacing = 10.0;
        // CustomView *cv = (CustomView *)sender.view;
       
         
+        CustomView *customView = (CustomView *)sender.view;
+        _myBlock(_label.text, customView);
 
-        _myBlock(_label.text, _image);
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
@@ -158,6 +160,10 @@ float viewSpacing = 10.0;
     destination.pickedImage = _elementView;
     //sender = _image;
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)toClose {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
