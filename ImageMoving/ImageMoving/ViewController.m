@@ -10,7 +10,7 @@
 #import "SecondViewController.h"
 
 @interface ViewController () <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
-
+@property (strong,nonatomic) NSString *str;
 @end
 
 @implementation ViewController
@@ -22,7 +22,7 @@
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
     UIView *customView = [[UIView alloc] initWithFrame:self.view.bounds];
-    customView.layer.borderWidth = 6;
+    customView.layer.borderWidth = 0;
     [customView addSubview:_pickedImage];
     [self.view addSubview:customView];
     
@@ -45,14 +45,19 @@
     controller.myBlock =^UIView*(NSString *data, UIView *uiview)
     {
         self.title = data;
-        //UIView *newV = [UIView new];
+        self.str = data;
         UIView *newV = [[UIView alloc] initWithFrame:CGRectMake(0,300,300,300)];
         newV.layer.borderWidth = 0;
         [self.view addSubview:newV];
         [newV addSubview:uiview];
         self.pickedImage = newV;
+   
         
-      
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesBegan:withEvent:)];
+        [uiview addGestureRecognizer:tap];
+        
+        
         UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moving:)];
         [panRecognizer setMinimumNumberOfTouches:1];
         [panRecognizer setMaximumNumberOfTouches:1];
@@ -62,7 +67,7 @@
         
         [self.array addObject:sender];
 //        for(int i=0; i<4; ++i) {
-//            
+//
 //        }
         
         return newV;
@@ -100,6 +105,15 @@ CGFloat initialY;
         
         [[sender view] setCenter:CGPointMake(currentX, currentY)];
     }
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [[[event allTouches] allObjects] objectAtIndex:0];
+    if (![touch.view isEqual: self.view]) {
+        self.title = @"Description";
+    } else {
+        self.title = _str;
+    }
+    
 }
 
 @end
