@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = _titleName;
+    self.title = @"Image Moving";
     UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(prepareForSegue:sender:)];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
@@ -33,7 +33,7 @@
     controller.myBlock =^UIView*(UILabel *data, UIView *uiview)
     {
         
-        [uiview setFrame:CGRectMake(0, self.view.frame.size.height/2, 200, 200)];
+        [uiview setFrame:CGRectMake(0, 0, 200, 200)];
         uiview.center = self.view.center;
         NSMutableString *newstring = [[NSMutableString alloc] initWithString:data.text];
         NSLog(@"the url is ... : %@", newstring);
