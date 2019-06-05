@@ -25,62 +25,39 @@
     customView.layer.borderWidth = 0;
     [customView addSubview:_pickedImage];
     [self.view addSubview:customView];
-    
-    //SecondViewController *ref =[[SecondViewController alloc ]init];
-    
-//    ref.myBlock =^void(NSString *data)
-//    {
-//        self.title = data;
-//    };
 }
- 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     SecondViewController *controller = [SecondViewController new];
-    
-   
-   
-        
     controller.myBlock =^UIView*(NSString *data, UIView *uiview)
     {
         self.title = data;
         self.str = data;
-        UIView *newV = [[UIView alloc] initWithFrame:CGRectMake(0,300,300,300)];
-        newV.layer.borderWidth = 0;
-        [self.view addSubview:newV];
-        [newV addSubview:uiview];
-        self.pickedImage = newV;
-   
+        //        UIView *newV = [[UIView alloc] initWithFrame:CGRectMake(0,300,300,300)];
+        //        newV.layer.borderWidth = 0;
+        //        [self.view addSubview:newV];
+        
+        [uiview setFrame:CGRectMake(0, self.view.frame.size.height/2, 200, 200)];
+        uiview.center = self.view.center;
+        [self.view addSubview:uiview];
+        self.pickedImage = uiview;
+        
         
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchesBegan:withEvent:)];
         [uiview addGestureRecognizer:tap];
-        
-        
         UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moving:)];
         [panRecognizer setMinimumNumberOfTouches:1];
         [panRecognizer setMaximumNumberOfTouches:1];
         [panRecognizer setDelegate:self];
         [self.pickedImage addGestureRecognizer:panRecognizer];
-        
-        
         [self.array addObject:sender];
-//        for(int i=0; i<4; ++i) {
-//
-//        }
-        
-        return newV;
+        return uiview;
         
         
     };
-        
     
-    
-    
-
-    //SecondViewController *controller = (SecondViewController *)segue.destinationViewController;
-   // [self presentViewController:controller animated:YES completion:nil];
     [self showViewController:controller sender:sender];
 }
 CGFloat initialX;

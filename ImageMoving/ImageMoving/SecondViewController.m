@@ -10,10 +10,10 @@
 #import "ViewController.h"
 
 @interface CustomView : UIView
-@property (strong, nonatomic, readwrite) NSString *name;
-@property (strong, nonatomic, readwrite) UILabel *nameLabel;
-@property (strong, nonatomic, readwrite) NSString *str;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) UILabel *nameLabel;
 @property float imageHeight;
+
 @end
 
 @implementation CustomView
@@ -28,26 +28,19 @@
 @end
 
 @interface SecondViewController () <UIGestureRecognizerDelegate>
-//@property (strong, nonatomic) UIView *createView;
-//@property (weak, nonatomic) IBOutlet CustomView *customView;
-
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIView *listView;
 @property (strong, nonatomic) UIView *elementView;
 @property (nonatomic, strong) NSMutableArray *squares;
 @property (strong, nonatomic) UILabel *label;
 
 @property (strong, nonatomic) CustomView *image;
-
 @property float height;
-
 @end
 
 @implementation SecondViewController
 
 
 float viewHeight = 150.0;
-float openViewHeight = 225.0;
 float currentViewPossitionX = 0.0;
 float currentViewPossitionY = 0.0;
 float viewSpacing = 10.0;
@@ -59,7 +52,6 @@ float viewSpacing = 10.0;
     self.navigationItem.hidesBackButton = YES;
     UIBarButtonItem *closing = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(toClose)];
     self.navigationItem.rightBarButtonItem = closing;
-    
     _height = _scrollView.bounds.size.height;
     
     NSArray *listUrl = @[
@@ -75,35 +67,28 @@ float viewSpacing = 10.0;
                          @"https://loremflickr.com/cache/resized/7916_47537711841_8cbf59efb8_c_320_480_nofilter.jpg",
                          @"https://loremflickr.com/cache/resized/7805_32549528197_df71385922_320_240_nofilter.jpg",
                          ];
-    
-   // _squares = [[NSMutableArray alloc] init];
+
     float viewCount = 0;
     for (int i = 0; i < 11; i++) {
         
-        _elementView = [[UIView alloc] initWithFrame:CGRectMake(currentViewPossitionX, 280*i + viewSpacing*2, CGRectGetWidth(_scrollView.bounds),viewHeight)];
-        
-        _elementView.layer.borderWidth = 0;
-        
         _image = [self addImage: i];
-        [_elementView addSubview:_image];
-        //float g = [self addImage:i];
-        
         _label = [self addLabel: [listUrl objectAtIndex:i]];
-        [_elementView addSubview:_label];
+        [_image setFrame:CGRectMake(0, 250*i + 10, _scrollView.frame.size.width, 200)];
+        [_label setFrame:CGRectMake(0, _image.frame.size.height/2 - 10, _scrollView.frame.size.width, 200)];
+        [_image addSubview:_label];
+        [_scrollView addSubview:_image];
+        
         
         viewCount++;
-        currentViewPossitionY += _image.bounds.size.height + viewSpacing*4;
-        
-        [self.scrollView addSubview:_elementView];
-      //  [_squares[i] addObject:_elementView];
-        
         [self tapImage];
-        
     }
     
     
+
     
-    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds),(viewHeight * viewCount + 2000));
+
+    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds),(viewHeight*viewCount + 1000));
+    
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
                                               [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
@@ -114,70 +99,50 @@ float viewSpacing = 10.0;
      ];
     
     
-    
-    
 }
--(CustomView*) addImage: (int) imageName {
+- (CustomView*) addImage: (int) imageName {
     
     NSString *name = [NSString stringWithFormat:@"%d",imageName];
-    
-    UIImage *img = [UIImage imageNamed: name];
-    
-    CustomView *elementImage = [[CustomView alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width / 2 - (img.size.width / 2) / 2, viewSpacing, img.size.width / 2, img.size.height / 2)];
-    
+    UIImage *imgage = [UIImage imageNamed: name];
+    CustomView *elementImage = [[CustomView alloc] initWithFrame:CGRectMake(0, 100, _scrollView.bounds.size.width, imgage.size.height)];
     elementImage.layer.borderWidth = 0;
     elementImage.name = name;
-    // elementImage.imageHeight = img.size.height / 2.5 + viewSpacing;
-    
-    // [_elementView addSubview:elementImage];
+    elementImage.imageHeight = 50;
     return elementImage;
-    
-    
-    //return img.size.height / 2.5 + viewSpacing;
 }
+
 
 -(UILabel*) addLabel: (NSString*) imageName {
     
-    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(_scrollView.bounds.size.width / 2 - _image.bounds.size.width / 2, _image.bounds.size.height + viewSpacing*1.5, _scrollView.bounds.size.width / 2, 20)];
+    UILabel *newLabel = [[UILabel alloc] initWithFrame:_image.frame];
     newLabel.layer.borderWidth = 0;
     newLabel.text = imageName;
-    
-    
+    newLabel.textColor = UIColor.blueColor;
     return newLabel;
 }
+
+
 
 - (void)handleTap:(UITapGestureRecognizer *)sender
 {
     if (sender.state == UIGestureRecognizerStateEnded) {
-        // CustomView *cv = (CustomView *)sender.view;
-        
-        
         CustomView *customView = (CustomView *)sender.view;
         _myBlock(_label.text, customView);
-        
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
-
-
-
 
 - (void)tapImage {
     UITapGestureRecognizer *select = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     select.delegate = self;
     select.numberOfTapsRequired = 1;
     [_image addGestureRecognizer:select];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    ViewController *destination = (ViewController*)segue.destinationViewController;
-    destination.pickedImage = _elementView;
-    //sender = _image;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+  
 }
 
 - (void)toClose {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 @end
