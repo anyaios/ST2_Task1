@@ -56,16 +56,16 @@ float viewSpacing = 10.0;
     
     NSArray *listUrl = @[
                          @"https://loremflickr.com/cache/resized/7805_32549528197_df71385922_320_240_nofilter.jpg",
-                         @"https://loremflickr.com/cache/resized/7811_46251604515_8380bc8272_320_320_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/3311_46251604515_8380bc8272_320_320_nofilter.jpg",
                          @"https://loremflickr.com/cache/resized/7916_47537711841_8cbf59efb8_c_320_480_nofilter.jpg",
                          @"https://loremflickr.com/cache/resized/4808_32447536148_5a7cae30dc_h_320_240_nofilter.jpg",
-                         @"https://loremflickr.com/cache/resized/7805_32549528197_df71385922_320_240_nofilter.jpg",
-                         @"https://loremflickr.com/cache/resized/7811_46251604515_8380bc8272_320_320_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/6805_32549528197_df71385922_320_240_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/9811_46251604515_8380bc8272_320_320_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/37916_47537711841_8cbf59efb8_c_320_480_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/42808_32447536148_5a7cae30dc_h_320_240_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/71916_47537711841_8cbf59efb8_c_320_480_nofilter.jpg",
                          @"https://loremflickr.com/cache/resized/7916_47537711841_8cbf59efb8_c_320_480_nofilter.jpg",
-                         @"https://loremflickr.com/cache/resized/4808_32447536148_5a7cae30dc_h_320_240_nofilter.jpg",
-                         @"https://loremflickr.com/cache/resized/7916_47537711841_8cbf59efb8_c_320_480_nofilter.jpg",
-                         @"https://loremflickr.com/cache/resized/7916_47537711841_8cbf59efb8_c_320_480_nofilter.jpg",
-                         @"https://loremflickr.com/cache/resized/7805_32549528197_df71385922_320_240_nofilter.jpg",
+                         @"https://loremflickr.com/cache/resized/73805_32549528197_df71385922_320_240_nofilter.jpg",
                          ];
 
     float viewCount = 0;
@@ -127,7 +127,9 @@ float viewSpacing = 10.0;
 {
     if (sender.state == UIGestureRecognizerStateEnded) {
         CustomView *customView = (CustomView *)sender.view;
-        _myBlock(_label.text, customView);
+        customView.subviews.lastObject.tag = 1111;
+        
+        _myBlock(customView.subviews.lastObject, customView);
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
