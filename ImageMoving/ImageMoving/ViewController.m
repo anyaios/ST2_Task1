@@ -28,7 +28,7 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
- 
+    __block UIView *test = [UIView new];
     SecondViewController *controller = [SecondViewController new];
     controller.myBlock =^UIView*(UILabel *data, UIView *uiview)
     {
@@ -49,10 +49,13 @@
         [panRecognizer setDelegate:self];
         [self.pickedImage addGestureRecognizer:panRecognizer];
         [self.array addObject:sender];
+        self.titleName = data.text;
+        test = uiview;
         return uiview;
         
         
     };
+    _pickedImage = test;
     
     [self showViewController:controller sender:sender];
 }
@@ -78,10 +81,10 @@ CGFloat initialY;
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [[[event allTouches] allObjects] objectAtIndex:0];
-    if (![touch.view isEqual: self.view]) {
-        self.title = @"Description";
-    } else {
+    if ([touch.view isEqual: _pickedImage]) {
         self.title = _titleName;
+    } else {
+        self.title = @"Image Moving";
     }
     
 }

@@ -12,7 +12,6 @@
 @class CustomView;
 @interface ViewController : UIViewController
 @property (nonatomic, strong) UIView *pickedImage;
-
 @property (nonatomic, strong) CustomView *customImage;
 @property (nonatomic, strong) NSMutableArray *array;
 
