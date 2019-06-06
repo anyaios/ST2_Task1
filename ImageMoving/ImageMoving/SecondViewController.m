@@ -12,8 +12,6 @@
 @interface CustomView : UIView
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) UILabel *nameLabel;
-@property float imageHeight;
-
 @end
 
 @implementation CustomView
@@ -32,9 +30,7 @@
 @property (strong, nonatomic) UIView *elementView;
 @property (nonatomic, strong) NSMutableArray *squares;
 @property (strong, nonatomic) UILabel *label;
-
 @property (strong, nonatomic) CustomView *image;
-@property float height;
 @end
 
 @implementation SecondViewController
@@ -52,7 +48,7 @@ float viewSpacing = 10.0;
     self.navigationItem.hidesBackButton = YES;
     UIBarButtonItem *closing = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(toClose)];
     self.navigationItem.rightBarButtonItem = closing;
-    _height = _scrollView.bounds.size.height;
+  
     
     NSArray *listUrl = @[
                          @"https://loremflickr.com/cache/resized/7805_32549528197_df71385922_320_240_nofilter.jpg",
@@ -69,16 +65,25 @@ float viewSpacing = 10.0;
                          ];
 
     float viewCount = 0;
+    float height = 0;
     for (int i = 0; i < 11; i++) {
-        
+       
         _image = [self addImage: i];
         _label = [self addLabel: [listUrl objectAtIndex:i]];
-        [_image setFrame:CGRectMake(0, 250*i + 10, _scrollView.frame.size.width, 200)];
-        [_label setFrame:CGRectMake(0, _image.frame.size.height/2 - 10, _scrollView.frame.size.width, 200)];
+     
+        [_image setFrame:CGRectMake(self.view.frame.size.width / 2 - _image.frame.size.width / 2, 20 + height, _image.frame.size.width, _image.frame.size.height)];
+        [_label setFrame:CGRectMake(0,0, _image.frame.size.width, _image.frame.size.height)];
         [_image addSubview:_label];
+  
+        _label.translatesAutoresizingMaskIntoConstraints = NO;
+        [NSLayoutConstraint activateConstraints:@[
+                                                  [_label.bottomAnchor constraintEqualToAnchor:_image.bottomAnchor constant:0]
+                                                  ]];
+        
+
+        
         [_scrollView addSubview:_image];
-        
-        
+        height += _image.frame.size.height + 20;
         viewCount++;
         [self tapImage];
     }
@@ -87,7 +92,7 @@ float viewSpacing = 10.0;
 
     
 
-    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds),(viewHeight*viewCount + 1000));
+    _scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.bounds),(height));
     
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:@[
@@ -104,19 +109,21 @@ float viewSpacing = 10.0;
     
     NSString *name = [NSString stringWithFormat:@"%d",imageName];
     UIImage *imgage = [UIImage imageNamed: name];
-    CustomView *elementImage = [[CustomView alloc] initWithFrame:CGRectMake(0, 100, _scrollView.bounds.size.width, imgage.size.height)];
+    CustomView *elementImage = [[CustomView alloc] initWithFrame:CGRectMake(0, 0, imgage.size.width, imgage.size.height)];
     elementImage.layer.borderWidth = 0;
     elementImage.name = name;
-    elementImage.imageHeight = 50;
     return elementImage;
 }
 
 
--(UILabel*) addLabel: (NSString*) imageName {
+-(UILabel*) addLabel: (NSString*) imageURL {
     
     UILabel *newLabel = [[UILabel alloc] initWithFrame:_image.frame];
     newLabel.layer.borderWidth = 0;
-    newLabel.text = imageName;
+    newLabel.text = imageURL;
+    if ([newLabel.text length] > 40) {
+       newLabel.text = [newLabel.text substringToIndex:40];
+    }
     newLabel.textColor = UIColor.blueColor;
     return newLabel;
 }
@@ -139,7 +146,6 @@ float viewSpacing = 10.0;
     select.delegate = self;
     select.numberOfTapsRequired = 1;
     [_image addGestureRecognizer:select];
-  
 }
 
 - (void)toClose {
