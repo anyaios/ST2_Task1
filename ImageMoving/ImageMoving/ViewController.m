@@ -35,6 +35,9 @@
         
         [uiview setFrame:CGRectMake(0, 0, 200, 200)];
         uiview.center = self.view.center;
+        uiview.contentMode = UIViewContentModeScaleAspectFill;
+        uiview.layer.borderWidth = 1;
+        uiview.clipsToBounds = YES;
         NSMutableString *newstring = [[NSMutableString alloc] initWithString:data.text];
         NSLog(@"the url is ... : %@", newstring);
         self.title = newstring;
